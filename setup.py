@@ -8,14 +8,14 @@ else:
     binpath = r"/usr/local/bin"
 
 setup(
-    name = "Toast",
-    packages = ["Toast"],
-    version = "0.0.1",
-    # data_files = [(binpath, ["scripts/gmailsend"])],
+    name = "PopupBubble",
+    packages = ["PopupBubble"],
+    version = "0.0.4",
+    data_files = [(binpath, ["scripts/pop_bubble.py"])],
     description = "Cross-platform desktop notification using Qt",
     author = "Kaiyin Zhong",
     author_email = "kindlychung@gmail.com",
-    url = "https://github.com/kindlychung/Toast",
+    url = "https://github.com/kindlychung/PopupBubble",
     keywords = ["notification", "cross-platform"]
     )
 

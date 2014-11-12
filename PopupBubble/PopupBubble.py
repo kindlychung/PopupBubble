@@ -5,7 +5,7 @@ import base64
 
 
 # Usage: Toast('Message')
-class Toast(QtGui.QDialog):
+class PopupBubble(QtGui.QDialog):
     def __init__(self, title, msg, duration=2):
         QtGui.QDialog.__init__(self)
         self.duration = duration
@@ -31,27 +31,15 @@ class Toast(QtGui.QDialog):
         self.setGeometry(0, 0, 300, 100)
         self.setLayout(layout)
 
-        self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
-        # self.setStyleSheet("border: 1px solid red; border-radius: 5px;")
-        self.toastThread = ToastThread(self.duration)
-        self.toastThread.finished.connect(self.close_all)
-        self.toastThread.start()
+        self.setWindowFlags(QtCore.Qt.FramelessWindowHint | QtCore.Qt.WindowStaysOnTopHint)
+        setWinBottomRight(self)
+        QtCore.QTimer.singleShot(self.duration * 1000, self.close_all)
 
     def close_all(self):
-        self.toastThread.terminate()
         self.close()
 
     def make_bold(self, text):
         return "<b>" + text + "</b>"
-
-
-
-class ToastThread(QtCore.QThread):
-    def __init__(self, n_seconds):
-        QtCore.QThread.__init__(self)
-        self.n_seconds = n_seconds
-    def run(self):
-        time.sleep(self.n_seconds)
 
 class QLabelButton(QtGui.QLabel):
     def __init(self, parent):
@@ -59,11 +47,21 @@ class QLabelButton(QtGui.QLabel):
     def mouseReleaseEvent(self, ev):
         self.emit(QtCore.SIGNAL('clicked()'))
 
-def toast(title, msg, duration):
+def setWinBottomRight(app):
+    br = QtGui.QDesktopWidget().availableGeometry().bottomRight()
+    size = app.size()
+    x = br.x() - size.width()
+    y = br.y() - size.height()
+    app.move(x, y)
+
+
+
+def popup(title, msg, duration):
     app = QtGui.QApplication(sys.argv)
-    toast = Toast(title, msg, duration)
+    toast = PopupBubble(title, msg, duration)
     toast.show()
-    sys.exit(app.exec_())
+    app.exec_()
+
 
 if __name__ == "__main__":
-    toast("Important message", "You have won 1000 euros, what are you waiting for? Come and get it!", 10)
+    popup("Important message", "You have won 1000 euros, what are you waiting for? Come and get it!", 10)

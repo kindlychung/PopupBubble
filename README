@@ -17,8 +17,8 @@ Using ``setup.py``
 
 ::
 
-    git clone https://github.com/kindlychung/Toast.git
-    cd Toast
+    git clone https://github.com/kindlychung/PopupBubble.git
+    cd PopupBubble
     python3 setup.py install
 
 
@@ -29,17 +29,21 @@ From github:
 
 ::
 
-    pip3 install --upgrade git+https://github.com/kindlychung/Toast.git
+    pip3 install --upgrade git+https://github.com/kindlychung/PopupBubble.git
 
 or from PyPI:
 
 ::
 
-    pip3 install --upgrade Toast
+    pip3 install --upgrade PopupBubble
 
 
 
 Usage
 -----
 
+See the help message:
 
+::
+
+    pop_bubble.py -h
